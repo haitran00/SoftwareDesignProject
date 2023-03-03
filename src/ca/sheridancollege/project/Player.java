@@ -8,13 +8,14 @@ package ca.sheridancollege.project;
 /**
  * A class that models each Player in the game. Players have an identifier, which should be unique.
  *
- * @author dancye
+ * @author dancyea
  * @author Paul Bonenfant Jan 2020
  */
 public abstract class Player {
 
     private String name; //the unique name for this player
-
+    private double balance;
+    
     /**
      * A constructor that allows you to set the player's unique ID
      *
@@ -46,4 +47,15 @@ public abstract class Player {
      */
     public abstract void play();
 
+    public double getBalance(){
+        return balance;
+    }
+    
+    public void earn(double amount){
+        balance += amount;
+    }
+    
+    public void bet(double amount){
+        balance -= amount;
+    }
 }
