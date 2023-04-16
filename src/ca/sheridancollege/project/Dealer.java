@@ -1,17 +1,23 @@
 package ca.sheridancollege.project;
 
 public class Dealer extends Player {
-    public Dealer(){
+
+    public Dealer() {
         super("Dealer");
     }
 
     public void play(Deck deck) {
+        hand.clear();
         // Dealer will initially have 2 cards
         addCardToHand(deck.pullCard());
         addCardToHand(deck.pullCard());
         Boolean hold = hasBlackJack();
-        if (hold){
+        int handTotal = handSum();
+        if (hold) {
             System.out.println("Dealer has Black Jack!");
+        }
+        if (handTotal <= 15) {
+            addCardToHand(deck.pullCard());
         }
     }
 }

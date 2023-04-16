@@ -3,7 +3,7 @@ package ca.sheridancollege.project;
 public class Hand extends GroupOfCards{
 
     public Hand(){
-        super(5);
+        super(52);
     }
 
     public int getHandSize(){
@@ -67,5 +67,8 @@ public class Hand extends GroupOfCards{
 
     public String showHand(){
         return drawVertical(Position.TOP) +  "\n"+ drawBodyVertical() + "\n"+ drawVertical(Position.BOT);
+    }
+    public void clear(){
+        cards.clear();
     }
 }

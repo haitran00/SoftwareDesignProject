@@ -32,6 +32,7 @@ public class Demo {
         System.out.println(p1);
         System.out.println(" ======"+dealer.getName()+"'s turn ======");
         dealer.play(deck);
+        
     }
 
     public static void gameTest(){
