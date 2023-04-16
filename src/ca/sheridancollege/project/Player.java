@@ -14,7 +14,7 @@ package ca.sheridancollege.project;
 public abstract class Player {
 
     private String name; //the unique name for this player
-    private double balance;
+    protected Hand hand; // The maximum card the player can have
     
     /**
      * A constructor that allows you to set the player's unique ID
@@ -23,6 +23,7 @@ public abstract class Player {
      */
     public Player(String name) {
         this.name = name;
+        hand = new Hand();
     }
 
     /**
@@ -41,21 +42,74 @@ public abstract class Player {
         this.name = name;
     }
 
+    public void setHandSize(int size){
+        hand.setSize(size);
+    }
+
     /**
      * The method to be overridden when you subclass the Player class with your specific type of Player and filled in
      * with logic to play your game.
      */
-    public abstract void play();
+    public abstract void play(Deck deck);
 
-    public double getBalance(){
-        return balance;
+    /**
+     * This method check if the player has BlackJack
+     * @return true if has
+     * @return false otherwise
+     */
+    public Boolean hasBlackJack(){
+        if (hand.getSize() == 2){
+            Card firstCard = hand.cards.get(0);
+            Card secondCard = hand.cards.get(1);
+            return (firstCard.getValue().equals(Card.Value.ACE) && secondCard.toCountValue() == 10) || 
+                    (secondCard.getValue().equals(Card.Value.ACE) && firstCard.toCountValue() == 10);
+        }
+        return false;
     }
-    
-    public void earn(double amount){
-        balance += amount;
+
+    /**
+     * @return the sum of all values in the player's hand
+     */
+    public int handSum(){
+        int sum = 0;
+        if (hand.getSize() > 0){
+            for (Card card: hand.cards){
+                sum += card.toCountValue();
+            }
+        }
+        return sum;
     }
-    
-    public void bet(double amount){
-        balance -= amount;
+
+    /**
+     * A method to add a card to the player hand
+     * @param card to add to hand
+     * @return true if player can add more card to hand
+     * @return false otherwise
+     */
+    public Boolean addCardToHand(Card card){
+        if (!handIsFull()){
+            hand.cards.add(card);
+            return true;
+        }
+        else {
+            System.out.println("Hand is full!");
+            return false;
+        }
+    }
+
+    /**
+     * Check if the hand is full and unable to get more cards
+     * @return true if full.
+     */
+    public Boolean handIsFull(){
+        return hand.cards.size() >= hand.getSize();
+    }
+
+    public String showHand(){
+        return "Card in "+getName()+" hand:\n" + hand.showHand();
+    }
+
+    public String toString(){
+        return "========"+getName()+"========\n"+showHand()+"\n========"+getName()+"========\n";
     }
 }
