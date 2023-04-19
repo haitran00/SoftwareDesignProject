@@ -439,4 +439,77 @@ public class BlackJackTest {
         System.out.println("Despite having very different cards, both will still tie");
         assertEquals(true, playerTotal > 21 && dealerTotal > 21);
     }
+
+
+    /* Good test: Balance updated when the player wins.
+    */
+   @Test
+   public void testGetBalanceGood() {
+       MainPlayer instance = new MainPlayer("John");
+       instance.setBetAmount(50);
+       instance.earn();
+       double expected = 1050.0;
+       double actual = instance.getBalance();
+       System.out.println(actual);
+       assertEquals(true, expected == actual);
+   }
+
+   /**
+    * Bad test: Balance is not updated when the player wins.
+    */
+   @Test
+   public void testGetBalanceBad() {
+       MainPlayer instance = new MainPlayer("John");
+       double expResult = 100.0;
+       double betAmount = 50.0;
+       instance.setBetAmount(betAmount);
+       instance.earn();
+       double result = instance.getBalance();
+       assertEquals(true,expResult != result);
+   }
+    /* Boundary test: Balance is set to the maximum value. 
+    */
+   @Test
+   public void testGetBalanceBoundary() {
+       MainPlayer instance = new MainPlayer("John");
+       double expResult = Double.MAX_VALUE;
+       instance.setBalance(expResult);
+       double result = instance.getBalance();
+       assertEquals(true, expResult == result);
+   }
+
+   /* Good case: The player bets the amount that is less than the amount of 
+    * balance and the balance should be updated after the bet.
+    */
+   @Test
+   public void testBetGood() {
+       MainPlayer instance = new MainPlayer("John");
+       instance.setBetAmount(100);
+       instance.lose();
+       assertEquals(true, 900 == instance.getBalance());
+   }
+
+   /*
+    * Bad case: The player bets an invalid amount (negative amount) so the game 
+    * assumes that they are not betting anything; the balance is still the same.
+    */
+   @Test
+   public void testBetBad() {
+       MainPlayer instance = new MainPlayer("John");
+       double initialBalance = instance.getBalance();
+       
+       assertEquals(true, initialBalance == instance.getBalance());
+   }
+
+   /*
+    * Boundary case: The player bets the maximum amount they can bet 
+    * and the balance should be updated after the bet, which is 0.
+    */
+   @Test
+   public void testBetBoundary() {
+       MainPlayer instance = new MainPlayer("John");
+        instance.setBetAmount(1000);
+        instance.lose();
+       assertEquals(true, 0 == instance.getBalance());
+   }
 }
