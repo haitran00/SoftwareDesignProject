@@ -19,11 +19,5 @@ public class Dealer extends Player {
         if (handTotal <= 15) {
             addCardToHand(deck.pullCard());
         }
-        System.out.println(toString());
-    }
-
-    @Override
-    public String toString() {
-        return "========" + getName() + "========\n" + showHand() + "\n========" + getName() + "========\n";
     }
 }

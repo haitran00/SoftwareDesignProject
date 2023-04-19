@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class MainPlayer extends Player {
 
-    private double balance = 100; // the balance of this player
+    private double balance = 1000; // the balance of this player
     private double betAmount;
 
     public MainPlayer(String name) {
@@ -66,13 +66,12 @@ public class MainPlayer extends Player {
 
     @Override
     public void earn() {
-        balance += betAmount * 2;
+        balance += betAmount;
         System.out.println("Your total is now: " + balance);
     }
 
     @Override
     public void tie() {
-        balance += betAmount;
         System.out.println("Your total is now: " + balance);
     }
 
@@ -90,8 +89,9 @@ public class MainPlayer extends Player {
             System.out.println("How much would you like to bet?");
             betAmount = input.nextDouble();
         }
-        balance -= betAmount;
-        System.out.println("Your total is now: " + balance);
+    }
+    public void lose(){
+        balance-= betAmount;
     }
 
     @Override

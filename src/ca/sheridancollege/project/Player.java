@@ -81,7 +81,6 @@ public abstract class Player {
         }
         return sum;
     }
-
     /**
      * A method to add a card to the player hand
      *
@@ -122,5 +121,8 @@ public abstract class Player {
     }
 
     void tie() {
+    }
+
+    void lose() {
     }
 }

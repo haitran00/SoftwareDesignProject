@@ -129,16 +129,25 @@ public class BlackJack extends Game {
         } else if (player.hasBlackJack() && !dealer.hasBlackJack()) {
             System.out.println("The player got blackjack! Player wins!");
             player.earn();
+        } else if (!player.hasBlackJack() && dealer.hasBlackJack()) {
+            System.out.println("Dealer wins with blackjack!");
+            player.lose();
         } else if (playerTotal > dealerTotal && playerTotal <= 21) {
             System.out.println("Player wins!");
             player.earn();
         } else if (dealerTotal > playerTotal && dealerTotal <= 21) {
             System.out.println("Dealer wins!");
-        } else if (playerTotal > 21) {
+            player.lose();
+        } else if (playerTotal > 21 && dealerTotal <= 21) {
             System.out.println("Player busts! Dealer wins!");
-        } else if (dealerTotal > 21) {
+            player.lose();
+        } else if (dealerTotal > 21 && playerTotal <= 21) {
             System.out.println("Dealer busts! Player wins!");
-        } else {
+            player.earn();
+        } else if (dealerTotal == playerTotal) {
+            System.out.println("Both tie!");
+            player.tie();
+        }  else if (dealerTotal > 21 && playerTotal > 21) {
             System.out.println("Both tie!");
             player.tie();
         }
