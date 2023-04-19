@@ -83,13 +83,27 @@ public class MainPlayer extends Player {
             System.exit(0);
         }
         System.out.println("How much would you like to bet?");
-        betAmount = input.nextDouble();
-        while (betAmount > balance) {
+        double amount = input.nextDouble();
+        while (amount > balance) {
             System.out.println("I'm sorry, the bet you entered exceeds your balance amount. Your balance is currently: " + balance);
             System.out.println("How much would you like to bet?");
-            betAmount = input.nextDouble();
+            amount = input.nextDouble();
+        }
+        setBetAmount(amount);
+    }
+
+    public void setBalance(double amount){
+        balance = amount;
+    }
+    /* 
+     * Only set Bet Amount if the bet amount is less than or equal the balance
+    */
+    public void setBetAmount(double amount){
+        if (amount <= balance){
+            betAmount = amount;
         }
     }
+    
     public void lose(){
         balance-= betAmount;
     }
